@@ -2,7 +2,6 @@
 FROM node:16-alpine
 
 WORKDIR /app
-COPY index.js ./
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
@@ -16,5 +15,5 @@ COPY . .
 EXPOSE 3000
 
 # Run the backend app
-CMD ["node", "index.js"]
+CMD ["node", "server.js"]
 
