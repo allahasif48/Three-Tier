@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3001:80"  # Expose frontend on port 3001 of EC2, using nginx (default port 80)
+    environment:
+      - REACT_APP_API_URL=http://13.234.116.15:3000/api  # Use your EC2 IP address
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "3000:3000"  # Expose backend on port 3000 of EC2
+    environment:
+      - DB_HOST=db  # Reference to the database container name in Docker network
+      - DB_USER=root
+      - DB_PASSWORD=mysql123
+      - DB_NAME=my_database
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql123
+      MYSQL_DATABASE: my_database
+    ports:
+      - "3306:3306"  # Expose MySQL on port 3306 of EC2
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./db-init/init.sql:/docker-entrypoint-initdb.d/init.sql  # Mount the init script for creating the table
+
+volumes:
+  mysql_data:
+
