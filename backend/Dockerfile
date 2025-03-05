@@ -1,5 +1,5 @@
 # Step 1: Build the Node.js backend
-FROM node:16
+FROM node:16-alpine
 
 WORKDIR /app
 
