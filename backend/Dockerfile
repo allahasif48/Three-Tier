@@ -2,7 +2,7 @@
 FROM node:16-alpine
 
 WORKDIR /app
-COPY index.js /app
+COPY index.js ./
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
