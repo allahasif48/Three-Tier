@@ -1,6 +1,6 @@
 # Step 1: Build the Node.js backend
 FROM node:16-alpine
-
+COPY . /app
 WORKDIR /app
 
 # Copy package.json and package-lock.json
