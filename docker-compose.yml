@@ -23,6 +23,7 @@ services:
       - DB_NAME=my_database
     depends_on:
       - db
+    entrypoint: ["./wait-for-it.sh", "db:3306", "--", "npm", "start"]
 
   db:
     image: mysql:8
